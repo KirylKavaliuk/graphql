@@ -1,0 +1,14 @@
+.button {
+  border: none;
+  outline: none;
+  color: var(--black);
+  background: var(--blue);
+  padding: 10px 20px;
+  box-sizing: border-box;
+  transition: background var(--default-tr-time) ease;
+  font-size: 1.2rem;
+}
+
+.button:hover {
+  background: var(--white);
+}

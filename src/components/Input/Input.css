@@ -1,0 +1,21 @@
+.input {
+  height: 40px;
+  width: 100%;
+  max-width: 300px;
+  font-size: 1.2rem;
+  outline: none;
+  padding: 0 5px;
+  background: var(--dark-grey);
+  border: none;
+  color: var(--white);
+  transition: background var(--default-tr-time);
+  border-radius: 3px;
+}
+
+.input:focus {
+  background: var(--grey);
+}
+
+.input::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+}

@@ -7,6 +7,8 @@ import { HttpLink } from 'apollo-link-http';
 
 import introspectionQueryResultData from '../../fragmentTypes.json';
 
+import Users from '../Users';
+
 import './App.css';
 
 const token = '39722e4ff1b952870568e954f087ef7a230456a4';
@@ -32,7 +34,7 @@ function App() {
     <ApolloProvider client={ client }>
       <BrowserRouter>
         <Switch>
-          <Route exact path='/' component={ null } />
+          <Route exact path='/' component={ Users } />
           <Route exact path='/user/:login' component={ null }/>
           <Route exact path='/user/:login/repo/:repo' component={ null }/>
           <Route path='*' component={ null }/>

@@ -9,6 +9,7 @@ import introspectionQueryResultData from '../../fragmentTypes.json';
 
 import Users from '../Users';
 import Repos from '../Repos';
+import RepoPage from '../RepoPage';
 
 import './App.css';
 
@@ -37,7 +38,7 @@ function App() {
         <Switch>
           <Route exact path='/' component={ Users } />
           <Route exact path='/user/:login' component={ Repos }/>
-          <Route exact path='/user/:login/repo/:repo' component={ null }/>
+          <Route exact path='/user/:login/repo/:repo' component={ RepoPage }/>
           <Route path='*' component={ null }/>
         </Switch>
       </BrowserRouter>

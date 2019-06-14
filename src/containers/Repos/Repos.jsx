@@ -1,9 +1,12 @@
 import React from 'react';
 
-const Repos = () => {
+
+
+const Repos = ({ match }) => {
+  const { params: { login } } = match;
 
   return (
-    <section>Repos</section>
+    <section className='repos'>{ login }</section>
   );
 }
 

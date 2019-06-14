@@ -10,7 +10,7 @@ fragment UserData on User {
 }
 
 query($searchValue: String!, $cursor: String) {
-  search(query: $searchValue, first: 10, type: USER, after: $cursor) {
+  search(query: $searchValue, first: 20, type: USER, after: $cursor) {
     edges {
       node {
         ...UserData

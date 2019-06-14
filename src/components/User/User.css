@@ -1,0 +1,31 @@
+.user {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 300px;
+  height: 40px;
+  padding: 10px 20px;
+  margin: 5px;
+  box-sizing: border-box;
+  background: var(--dark-grey);
+  transition: background var(--default-tr-time);
+  color: var(--white);
+}
+
+.user:hover {
+  background: var(--grey);
+}
+
+.user-login {
+  font-size: 1.2rem;
+  font-weight: normal;
+}
+
+.user-repos-count {
+  display: block;
+  padding: 10px 0 0 5px;
+  display: block;
+  font-size: 0.7rem;
+  white-space: nowrap;
+}

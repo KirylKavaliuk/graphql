@@ -8,10 +8,11 @@ import { HttpLink } from 'apollo-link-http';
 import introspectionQueryResultData from '../../fragmentTypes.json';
 
 import Users from '../Users';
+import Repos from '../Repos';
 
 import './App.css';
 
-const token = '39722e4ff1b952870568e954f087ef7a230456a4';
+const token = 'c8fffac371d44b0cf1066ae30d5327d3a9425c95';
 
 const fragmentMatcher = new IntrospectionFragmentMatcher({
   introspectionQueryResultData
@@ -35,7 +36,7 @@ function App() {
       <BrowserRouter>
         <Switch>
           <Route exact path='/' component={ Users } />
-          <Route exact path='/user/:login' component={ null }/>
+          <Route exact path='/user/:login' component={ Repos }/>
           <Route exact path='/user/:login/repo/:repo' component={ null }/>
           <Route path='*' component={ null }/>
         </Switch>

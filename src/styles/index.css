@@ -12,9 +12,19 @@ body {
   background: var(--grey);
 }
 
+h3 {
+  margin: 0;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+a:-webkit-any-link {
+  color: var(--white);
+  cursor: pointer;
+  text-decoration: none;
 }
 
 :root {

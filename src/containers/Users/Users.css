@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
 }
 
 .search-wrapper {
@@ -12,4 +13,22 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.users-list {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100%;
+  max-width: 1400px;
+  padding: 10px;
+  list-style-type: none;
+  padding: 0;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.message {
+  font-size: 1.2rem;
+  color: var(--white);
 }

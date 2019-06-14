@@ -3,12 +3,12 @@ import { Link } from 'react-router-dom';
 
 import './User.css';
 
-const User = ({ login, repos }) => {
+const User = ({ login, repos, onClick }) => {
   const { totalCount } = repos;
 
   return (
     <li className='user'>
-      <Link to={ `/user/${login}` }>
+      <Link onClick={ onClick } to={ `/user/${login}` }>
         <h3 className='user-login'>{ login }</h3>
       </Link>
       <span className='user-repos-count'>repos: { totalCount }</span>

@@ -1,0 +1,19 @@
+.star {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 45px;
+  height: 45px;
+  background: url(/star.svg);
+  color: var(--white);
+  font-size: 0.7rem;
+}
+
+.star:hover {
+  cursor: pointer;
+  color: var(--black);
+}
+
+.active {
+  background: url(/star-active.svg);
+}

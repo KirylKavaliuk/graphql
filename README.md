@@ -21,4 +21,3 @@ Back-end: Github graphql API should be used https://developer.github.com/v4/.
 ## Seeds
 
  - create-react-app or custom
-

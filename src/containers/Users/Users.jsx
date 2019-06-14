@@ -94,14 +94,12 @@ const Users = ({ history }) => {
               <>
                 <ul className='users-list'>
                   { users.map(user => {
-                    const { node } = user;
-                    const { id: key } = node;
-                    const { login, repositories } = node; 
+                    const { node: { id, login, repositories } } = user;
 
                     return (
                       <User 
                         onClick={ () => replaceHistory() }
-                        key={ `${key}${login}` }
+                        key={ `${id}${login}` }
                         login={ login }
                         repos={ repositories }
                       />  

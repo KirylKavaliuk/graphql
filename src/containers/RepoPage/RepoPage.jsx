@@ -37,12 +37,12 @@ const RepoPage = ({ match }) =>  {
               const html = `${object.text.replace(/\n/g, '<br>')}`
 
               return(
-                <div className='git' dangerouslySetInnerHTML={{ __html: html }}></div>
+                <div className='git-info' dangerouslySetInnerHTML={{ __html: html }}></div>
               );
             }
   
             return(
-              <div className='git'>{ description }</div>
+              <div className='git-info'>{ description }</div>
             );
           }
 

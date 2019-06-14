@@ -2,15 +2,21 @@
   display: flex;
   justify-content: space-between;
   width: 100%;
-  max-width: 400px;
+  max-width: 300px;
   background: var(--dark-grey);
   position: relative;
   height: 60px;
   padding: 5px 5px 5px 10px;
   box-sizing: border-box;
-  margin: 10px;
   border: 1px solid;
   border-radius: 3px;
+}
+
+.repo-name {
+  max-width: 235px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .repo-lang {

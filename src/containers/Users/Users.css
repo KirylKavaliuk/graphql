@@ -16,9 +16,11 @@
 }
 
 .users-list {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-column-gap: 10px;
+  grid-row-gap: 10px;
+  justify-items: center;
   width: 100%;
   max-width: 1400px;
   padding: 10px;
@@ -26,6 +28,10 @@
   padding: 0;
   padding: 10px;
   box-sizing: border-box;
+}
+
+.button-load-more {
+  margin-bottom: 50px;
 }
 
 .message {

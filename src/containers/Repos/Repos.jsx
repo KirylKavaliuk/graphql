@@ -77,7 +77,11 @@ const Repos = ({ match }) => {
                     );
                   }) }
                 </ul>
-                { hasNextPage && <Button onClick={ () => loadMoreHandler(fetchMore, endCursor) } label='load more'/> }
+                { hasNextPage && <Button 
+                  className='button-load-more'
+                  onClick={ () => loadMoreHandler(fetchMore, endCursor) } 
+                  label='load more'
+                /> }
               </>
             );
           }

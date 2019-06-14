@@ -48,7 +48,7 @@ const Users = ({ history }) => {
           return previousResult;
         }
 
-        return Object.assign(previousResult, {
+        return Object.assign({}, previousResult, {
           search: {
             ...fetchMoreResult.search,
             edges: [...previousResult.search.edges, ...newEdges],
@@ -108,7 +108,11 @@ const Users = ({ history }) => {
                     );
                   }) }
                 </ul>
-                { hasNextPage && <Button onClick={ () => loadMoreHandler(fetchMore, endCursor) } label='load more'/> }
+                { hasNextPage && <Button
+                    className='button-load-more'
+                    onClick={ () => loadMoreHandler(fetchMore, endCursor) } 
+                    label='load more'
+                  /> }
               </>
             );
           } 

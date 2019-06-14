@@ -6,7 +6,7 @@ query($login: String!, $cursor:String) {
   repositoryOwner(login: $login) {
     id
     login
-    repositories(affiliations:OWNER, first: 5, after: $cursor) {
+    repositories(affiliations:OWNER, first: 20, after: $cursor) {
       edges {
         node {
           ...on Repository {

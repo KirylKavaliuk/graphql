@@ -33,14 +33,13 @@ const Repo = ({
         mutation={ viewerHasStarred ? removeStar : addStar }
         variables={{ starrableId: id }}
       >
-        { (toggleStar) => {
-          return (
+        { (toggleStar) => (
             <Star
               active={ viewerHasStarred }
               stargazers={ totalCount }
               onClick={ toggleStar }
             />
-          );
+          )
         } }
       </Mutation>
     </li>

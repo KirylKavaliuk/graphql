@@ -13,7 +13,7 @@ import RepoPage from '../RepoPage';
 
 import './App.css';
 
-const token = 'c8fffac371d44b0cf1066ae30d5327d3a9425c95';
+const token = 'bc9c44d05766e29651df00372fb594dd0e91b09b';
 
 const fragmentMatcher = new IntrospectionFragmentMatcher({
   introspectionQueryResultData
@@ -31,19 +31,17 @@ const client = new ApolloClient({
   cache: new InMemoryCache(fragmentMatcher)
 });
 
-function App() {
-  return (
-    <ApolloProvider client={ client }>
-      <BrowserRouter>
-        <Switch>
-          <Route exact path='/' component={ Users } />
-          <Route exact path='/user/:login' component={ Repos }/>
-          <Route exact path='/user/:login/repo/:repo' component={ RepoPage }/>
-          <Route path='*' component={ null }/>
-        </Switch>
-      </BrowserRouter>
-    </ApolloProvider>
-  );
-}
+const App = () =>  (
+  <ApolloProvider client={ client }>
+    <BrowserRouter>
+      <Switch>
+        <Route exact path='/' component={ Users } />
+        <Route exact path='/user/:login' component={ Repos }/>
+        <Route exact path='/user/:login/repo/:repo' component={ RepoPage }/>
+        <Route path='*' component={ null }/>
+      </Switch>
+    </BrowserRouter>
+  </ApolloProvider>
+);
 
 export default App;

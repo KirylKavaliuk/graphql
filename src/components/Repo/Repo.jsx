@@ -40,7 +40,7 @@ const Repo = ({
               onClick={ toggleStar }
             />
           )
-        } }
+        }
       </Mutation>
     </li>
   );

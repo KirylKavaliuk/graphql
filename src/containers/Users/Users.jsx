@@ -5,59 +5,109 @@ import Button from '../../components/Button';
 import Input from '../../components/Input';
 import User from '../../components/User';
 
-import { Query } from 'react-apollo';
+import { graphql, compose } from 'react-apollo';
 import { searchUsers } from './queries';
 
 import './Users.css';
 
-const Users = ({ history }) => {
+const getSearchParam = (history) => {
+	const { location: { search: query } } = history;
+	const params = query.slice(query.indexOf('?')).split('&');
+	const searchParam = params.find(param => param.includes('query'));
+
+	return searchParam ? searchParam.slice(7) : '';
+}
+
+const Users = ({ history, searchUsers }) => {
   const [search, setSearch] = useState('');
+	const { error, loading, search: data, fetchMore } = searchUsers;
 
-  useEffect(() => {
-    const { location: { search: query } } = history;
-    const params = query.slice(search.indexOf('?') + 1).split('&');
-    const searchParam = params.find(param => param.includes('query'));
+	useEffect(() => {
+		setSearch(getSearchParam(history));
+	}, [history]);
 
-    setSearch(searchParam ? searchParam.slice(7) : '');
-  }, [])
+	const loadMoreHandler = () => {
+		const endCursor = data ? data.pageInfo.endCursor : undefined;
 
-  const replaceHistory = () => {
-    const { location: { pathname } } = history;
+		fetchMore({
+			variables: {
+				cursor: endCursor
+			},
+			updateQuery: (previousResult, { fetchMoreResult }) => {
+				const { search: { edges: newEdges, pageInfo } } = fetchMoreResult;
 
-    history.replace({
-      pathname,
-      search: `query=${search}`
-    });
-  };
+				if(!fetchMoreResult) {
+					return previousResult;
+				}
+
+				return Object.assign({}, previousResult, {
+					search: {
+						...fetchMoreResult.search,
+						edges: [...previousResult.search.edges, ...newEdges],
+						pageInfo,
+					}
+				});
+			}
+		})
+	}
 
   const onChangeSearchHadler = (event) => {
     const { target: { value } } = event;
 
+		const { location: { pathname } } = history;
+
+    history.replace({
+      pathname,
+      search: `query=${value}`
+    });
+
     setSearch(value);
-  }
+	}
 
-  const loadMoreHandler = (fetchMore, endCursor) => {
-    fetchMore({
-      variables: {
-        cursor: endCursor
-      },
-      updateQuery: (previousResult, { fetchMoreResult }) => {
-        const { search: { edges: newEdges, pageInfo } } = fetchMoreResult;
+	const UsersList = () => {
+		if(loading) {
+			return (
+				<p className='message'>loading...</p>
+			);
+		}
 
-        if(!fetchMoreResult) {
-          return previousResult;
-        }
+		if(error) {
+			return (
+				<p className='message'>error!</p>
+			);
+		}
 
-        return Object.assign({}, previousResult, {
-          search: {
-            ...fetchMoreResult.search,
-            edges: [...previousResult.search.edges, ...newEdges],
-            pageInfo,
-          }
-        });
-      }
-    })
-  }
+		if(data) {
+			const  { edges: users, pageInfo: { hasNextPage, endCursor } } = data;
+
+			return (
+				<>
+					<ul className='users-list'>
+						{ users.map(user => {
+							const { node: { id, login, repositories } } = user;
+
+							return (
+								<User 
+									key={ `${id}${login}` }
+									login={ login }
+									repos={ repositories }
+								/>  
+							);
+						}) }
+					</ul>
+					{ hasNextPage && <Button
+							className='button-load-more'
+							onClick={ () => loadMoreHandler(fetchMore, endCursor) } 
+							label='load more'
+						/> }
+				</>
+			);
+		} 
+		return <>
+			<p className='message'>users are not found</p>
+			<Button label='clear search field' onClick={ () => setSearch('') }/>
+		</>
+	}
 
   return (
     <section className='users'>
@@ -69,60 +119,21 @@ const Users = ({ history }) => {
           onChange={ onChangeSearchHadler }
         />
       </div>
-
-      <Query
-        query={ searchUsers }
-        variables={{ searchValue: search }}
-      >
-        { ({ error, loading, data, fetchMore }) => {
-          if(loading) {
-            return (
-              <p className='message'>loading...</p>
-            );
-          }
-
-          if(error) {
-            return (
-              <p className='message'>error!</p>
-            );
-          }
-
-          if(data.search) {
-            const { search: { edges: users, pageInfo: { hasNextPage, endCursor } } } = data;
-
-            return (
-              <>
-                <ul className='users-list'>
-                  { users.map(user => {
-                    const { node: { id, login, repositories } } = user;
-
-                    return (
-                      <User 
-                        onClick={ () => replaceHistory() }
-                        key={ `${id}${login}` }
-                        login={ login }
-                        repos={ repositories }
-                      />  
-                    );
-                  }) }
-                </ul>
-                { hasNextPage && <Button
-                    className='button-load-more'
-                    onClick={ () => loadMoreHandler(fetchMore, endCursor) } 
-                    label='load more'
-                  /> }
-              </>
-            );
-          } 
-
-          return <>
-            <p className='message'>users are not found</p>
-            <Button label='clear search field' onClick={ () => setSearch('') }/>
-          </>
-        } }
-      </Query>
+			<UsersList/>
     </section>
   );
 }
 
-export default withRouter(Users);
+export default compose(
+	withRouter,
+	graphql(
+		searchUsers, { 
+			name: 'searchUsers', 
+			options: ({ history }) => ({
+				variables: {
+					searchValue: getSearchParam(history),
+				},
+			}),
+		},
+	),
+)(Users);

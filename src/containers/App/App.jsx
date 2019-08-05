@@ -13,7 +13,7 @@ import RepoPage from '../RepoPage';
 
 import './App.css';
 
-var token = 'd902f42890cac354bb5e37de58bcc22aaeb4787f'; //prompt('set token for testing: ', '');
+var token = prompt('set token for testing: ', '');
 
 const fragmentMatcher = new IntrospectionFragmentMatcher({
   introspectionQueryResultData
